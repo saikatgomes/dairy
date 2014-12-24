@@ -11,7 +11,6 @@
 		$rowCount = 0;
 		foreach ($tableData as $aRow){
 			$rowCount++;
-			#echo $aRow[0] . " - " . $aRow[1] . "<br>";
 			echo "<tr>";
 				echo "<th scope=\"row\">".$rowCount."</th>";
 				echo "<td>".$aRow[0]."</td>";

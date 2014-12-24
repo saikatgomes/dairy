@@ -17,6 +17,9 @@
 	<![endif]-->
     </head>
 
+<!-- The noUiSlider script and stylesheet -->
+<!-- Use the files with *.min.* for the minified versions. -->
+<link href="noUISlider/jquery.nouislider.min.css" rel="stylesheet">
 
 
 <?php
@@ -167,6 +170,8 @@
 			$sheet = $objPHPExcel->getSheet(0);
 			$highestRow = $sheet->getHighestRow();
 			$highestColumn = $sheet->getHighestColumn();
+			$xMax=0;
+			$yMax=0;
 
 			//  Loop through each row of the worksheet in turn
 			for ($row = 1; $row <= $highestRow; $row++) {
@@ -180,6 +185,12 @@
 				else{
 					$tableData[$row-1][0]=$rowData[0][0];
 					$tableData[$row-1][1]=$rowData[0][1];
+					if($rowData[0][0]>$xMax){
+						$xMax=$rowData[0][0];
+					}
+					if($rowData[0][1]>$yMax){
+						$yMax=$rowData[0][1];
+					}
 				}
 			}
 			#echo "<br> c1 ".$tableColHr1;
@@ -208,11 +219,11 @@
 		<?php
 			if (file_exists($target_file)) {
 				echo "<div class=\"col-md-1\">&nbsp;</div>";
-				echo "<div class=\"col-md-5\">";		
-					include 'table.php';	
+				echo "<div class=\"col-md-5\">";	
+					include 'graph.php';	
 				echo "</div>";
 				echo "<div class=\"col-md-5\">";		
-					include 'graph.php';			
+					include 'table.php';				
 				echo "</div>";
 				echo "<div class=\"col-md-1\">&nbsp;</div>";
 			}else{
