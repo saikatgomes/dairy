@@ -56,7 +56,7 @@
                 <p>
                    <strong>Core Functionalities:</strong> 
                    <ul>
-                        <li>This website has been made using HTML5, JavaScript, PHP, jQuery, Bootstrap, PHPExcel, noUISlider and Google Chart Tools.</li>
+                        <li>This website has been made using HTML5, JavaScript, CSS,  PHP, jQuery, Bootstrap, PHPExcel, noUISlider and Google Chart Tools.</li>
                         <li>*.xls or *.xlsx files can be uploaded.</li>
                         <li>PHPExcel is used to read data from the Excel files</li>
                         <li>The given format is assumed.</li>
