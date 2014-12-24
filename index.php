@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>CS 784 - Data Integration Project</title>
+	<title>Saikat R. Gomes - Project - HOME</title>
 
 	<!-- Bootstrap -->
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -31,17 +31,6 @@
 <?php
 	/** Include PHPExcel */
 	require_once 'PHPExcel/Classes/PHPExcel.php';
-	#print "request --- ";
-	#var_dump($_REQUEST);
-	#print "post --- ";
-	#var_dump($_POST);
-	#print "\r\n";
-	#print "get --- ";
-	#var_dump($_GET);
-	#print "\r\n";
-	#print "files --- ";
-	#var_dump($_FILES);
-	#print "\r\n";
 ?>
 
 
@@ -91,8 +80,10 @@
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		  <ul class="nav navbar-nav">
 		    <li class=""><a href="mailto:saikat@cs.wisc.edu">saikat@cs.wisc.edu</a></li>
-		    <li><a href="#" data-toggle="modal" data-target="#myModal" >Upload</a></li>
-		    <li><a href="https://github.com/saikatgomes/dairy" target="_blank">Git Repo</a></li>
+		    <li><a href="http://pages.cs.wisc.edu/~saikat/projects/dairy/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;&nbsp;Home</a></li>
+		    <li><a href="https://github.com/saikatgomes/dairy" target="_blank"><span class="glyphicon glyphicon-file" aria-hidden="true"></span>&nbsp;&nbsp;Git Repo</a></li>
+            <li><a href="about.php"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span>&nbsp;&nbsp;About</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#myModal" ><span class="glyphicon glyphicon-upload" aria-hidden="true"></span>&nbsp;&nbsp;Upload</a></li>
 		  </ul>
 		</div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
@@ -140,12 +131,6 @@
 		}
 		unset($_FILES["fileToUpload"]);
 		unset($_POST["submit"]);
-		/*	
-			print "files --- ";
-			var_dump($_FILES);
-			print "post --- ";
-			var_dump($_POST);
-		*/
 	}
 	?>
 
@@ -201,12 +186,7 @@
 					}
 				}
 			}
-			#echo "<br> c1 ".$tableColHr1;
-			#echo "<br> c2 ".$tableColHr2."<br><br>";
-			#print_r($tableData);
-
 		}
-		
 	?>	
 
 
@@ -215,7 +195,7 @@
 	<!-- Button trigger modal -->
 	<center>
 	<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-	  Upload Data
+	  <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>&nbsp;&nbsp;Upload Data
 	</button>
 	</center>
 
@@ -251,10 +231,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="bootstrap/js/bootstrap.min.js"></script>
-
-
-<script src="noUISlider/jquery.nouislider.all.js"></script>
-<!--<script type="text/javascript" src="simpleSlider/bootstrap-slider.js"></script>-->
+    <script src="noUISlider/jquery.nouislider.all.js"></script>
 
     </body>
 </html>
