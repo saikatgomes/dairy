@@ -1,4 +1,4 @@
-diary
+Project Details
 =====
 <p>
    <strong>Core Functionalities:</strong> 
