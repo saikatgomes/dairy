@@ -17,35 +17,53 @@
 	<![endif]-->
     </head>
 
-<!--
-	<?php
-	$target_dir = "uploads/";
-	$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-	$uploadOk = 1;
-	$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-	// Check if image file is a actual image or fake image
-	if(isset($_POST["submit"])) {
 
-		echo "SRG STUFF!!!";
-		$check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-		if($check !== false) {
-		    echo "File is an image - " . $check["mime"] . ".";
-		    $uploadOk = 1;
-		} else {
-		    echo "File is not an image.";
-		    $uploadOk = 0;
-		}
-	}
-	?>
--->
 
 <?php
 	/** Include PHPExcel */
 	require_once 'PHPExcel/Classes/PHPExcel.php';
+	#print "request --- ";
+	#var_dump($_REQUEST);
+	#print "post --- ";
+	#var_dump($_POST);
+	#print "\r\n";
+	#print "get --- ";
+	#var_dump($_GET);
+	#print "\r\n";
+	#print "files --- ";
+	#var_dump($_FILES);
+	#print "\r\n";
 ?>
 
-    <body>
-	
+
+    <body>	
+
+	<!-- Modal START -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<form action="index.php" method="post" enctype="multipart/form-data">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header">
+		    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		    <h4 class="modal-title" id="myModalLabel">Upload data from excel</h4>
+		  </div>
+		  <div class="modal-body">
+			  <div class="form-group">
+				<label for="exampleInputFile">Select a file to upload:</label>
+				<input type="file" name="fileToUpload" id="fileToUpload">
+				<p class="help-block">Only Excel Spreadsheets allowed and asumed.</p>
+			  </div>
+		  </div>
+		  <div class="modal-footer">
+		    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			<input class="btn btn-primary" type="submit" value="Upload Data" name="submit">
+		  </div>
+		</div>
+	  </div>
+	</form>
+	</div>
+	<!-- Modal END -->
+
 	<!-- TOP NAVBAR START-->
 	<nav class="navbar navbar-inverse">
 	  <div class="container-fluid">
@@ -69,53 +87,151 @@
 	  </div><!-- /.container-fluid -->
 	</nav>
 	<!-- TOP NAVBAR END-->
+	
+	<center>
+	<?php
+	$target_dir = "uploads/";
+	$target_file = $target_dir . 'data.xls';
+	$uploadOk = 1;
+	$imageFileType = pathinfo($_FILES["fileToUpload"]["name"],PATHINFO_EXTENSION);
+	// Check if image file is a actual image or fake image
+	if(isset($_POST["submit"])) {
+
+		// Allow certain file formats
+		if($imageFileType != "xls" && $imageFileType != "xlsx") {
+			echo "<div class=\"alert alert-danger alert-dismissible\" role=\"alert\">";
+				echo "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>";
+				echo "Sorry, only XLS & XLSX files are allowed.";
+			echo "</div>";			
+			$uploadOk = 0;
+		}
+		else{
+			// Check if $uploadOk is set to 0 by an error
+			if ($uploadOk == 0) {
+				echo "<div class=\"alert alert-danger alert-dismissible\" role=\"alert\">";
+					echo "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>";
+					echo "Sorry, your file was not uploaded.";
+				echo "</div>";	
+			// if everything is ok, try to upload file
+			} else {
+				if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+					echo "<div class=\"alert alert-success alert-dismissible\" role=\"alert\">";
+						echo "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>";
+						echo "The file <strong>". basename( $_FILES["fileToUpload"]["name"]). "</strong> has been uploaded.";
+					echo "</div>";	
+				} else {
+					echo "<div class=\"alert alert-danger alert-dismissible\" role=\"alert\">";
+						echo "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>";
+						echo "Sorry, there was an error uploading your file.";
+					echo "</div>";	
+				}
+			}
+		}
+		unset($_FILES["fileToUpload"]);
+		unset($_POST["submit"]);
+		/*	
+			print "files --- ";
+			var_dump($_FILES);
+			print "post --- ";
+			var_dump($_POST);
+		*/
+	}
+	?>
 
 
+	<?php
+		include 'PHPExcel/Classes/PHPExcel/IOFactory.php';
+		$inputFileName = 'uploads/data.xls';
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-<form action="index.php" method="post" enctype="multipart/form-data">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Upload data from excel</h4>
-      </div>
-      <div class="modal-body">
-		  <div class="form-group">
-			<label for="exampleInputFile">Select a file to upload:</label>
-			<input type="file" name="fileToUpload" id="fileToUpload">
-			<p class="help-block">Only Excel Spreadsheets allowed and asumed.</p>
-		  </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Upload Data</button>
-      </div>
-    </div>
-  </div>
-</form>
-</div>
+		if (file_exists($inputFileName)) {
+			
+			//  Read your Excel workbook
+			try {
+				$inputFileType = PHPExcel_IOFactory::identify($inputFileName);
+				$objReader = PHPExcel_IOFactory::createReader($inputFileType);
+				$objPHPExcel = $objReader->load($inputFileName);
+			} catch (Exception $e) {
+				// print better messages
 
-<!-- Button trigger modal -->
-<center>
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-  Upload Data
-</button>
-</center>
+				echo "<div class=\"col-md-12\">";		
+					echo "<div class=\"alert alert-danger alert-dismissible\" role=\"alert\">";
+						echo "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>";
+						echo 'Error loading file "' . pathinfo($inputFileName, PATHINFO_BASENAME). '": ' . $e->getMessage();
+					echo "</div>";	
+				echo "</div>";
+
+				#die();
+			}
+
+			//  Get worksheet dimensions
+			$sheet = $objPHPExcel->getSheet(0);
+			$highestRow = $sheet->getHighestRow();
+			$highestColumn = $sheet->getHighestColumn();
+
+			//  Loop through each row of the worksheet in turn
+			for ($row = 1; $row <= $highestRow; $row++) {
+				//  Read a row of data into an array
+				$rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, 
+				NULL, TRUE, FALSE);
+				if($row==1){
+					$tableColHr1=$rowData[0][0];
+					$tableColHr2=$rowData[0][1];
+				}
+				else{
+					$tableData[$row-1][0]=$rowData[0][0];
+					$tableData[$row-1][1]=$rowData[0][1];
+				}
+			}
+			#echo "<br> c1 ".$tableColHr1;
+			#echo "<br> c2 ".$tableColHr2."<br><br>";
+			#print_r($tableData);
+
+		}
+		
+	?>	
 
 
+	</center>
 
+	<!-- Button trigger modal -->
+	<center>
+	<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+	  Upload Data
+	</button>
+	</center>
 
+	<br>
 
+	<center>
+	<div class="row">
 
+		<?php
+			if (file_exists($target_file)) {
+				echo "<div class=\"col-md-1\">&nbsp;</div>";
+				echo "<div class=\"col-md-5\">";		
+					include 'table.php';	
+				echo "</div>";
+				echo "<div class=\"col-md-5\">";		
+					include 'graph.php';			
+				echo "</div>";
+				echo "<div class=\"col-md-1\">&nbsp;</div>";
+			}else{
+				echo "<div class=\"col-md-12\">";		
+					echo "<div class=\"alert alert-danger alert-dismissible\" role=\"alert\">";
+						echo "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>";
+						echo "<strong>No Data file uploaded!</strong><br>Please upload a data file.";
+					echo "</div>";	
+				echo "</div>";
+			}
+		?>	
+
+	</div>
+	</center>
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="bootstrap/js/bootstrap.min.js"></script>
-	<script src="bootstrap-table-master/src/bootstrap-table.js"></script>
-
 
     </body>
 </html>
