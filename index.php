@@ -9,17 +9,23 @@
 	<!-- Bootstrap -->
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
+	<link href="noUISlider/jquery.nouislider.css" rel="stylesheet">
+	<!--<link href="simpleSlider/bootstrap-slider.css" rel="stylesheet">-->
+	<!--
+	<link href="noUISlider/jquery.nouislider.min.css" rel="stylesheet">
+	<link href="noUISlider/jquery.nouislider.pips.css" rel="stylesheet">
+	<link href="noUISlider/jquery.nouislider.pips.min.css" rel="stylesheet">
+	-->
+
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
 	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     </head>
 
-<!-- The noUiSlider script and stylesheet -->
-<!-- Use the files with *.min.* for the minified versions. -->
-<link href="noUISlider/jquery.nouislider.min.css" rel="stylesheet">
 
 
 <?php
@@ -40,6 +46,7 @@
 
 
     <body>	
+
 
 	<!-- Modal START -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -85,6 +92,7 @@
 		  <ul class="nav navbar-nav">
 		    <li class=""><a href="mailto:saikat@cs.wisc.edu">saikat@cs.wisc.edu</a></li>
 		    <li><a href="#" data-toggle="modal" data-target="#myModal" >Upload</a></li>
+		    <li><a href="https://github.com/saikatgomes/dairy" target="_blank">Git Repo</a></li>
 		  </ul>
 		</div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
@@ -243,6 +251,10 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="bootstrap/js/bootstrap.min.js"></script>
+
+
+<script src="noUISlider/jquery.nouislider.all.js"></script>
+<!--<script type="text/javascript" src="simpleSlider/bootstrap-slider.js"></script>-->
 
     </body>
 </html>
